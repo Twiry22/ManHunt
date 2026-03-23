@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manhunt | The Map</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* The map container — looks like an old parchment */
+        .map-container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            margin: 30px auto;
+            /* Dark green parchment feel */
+            background-color: #0d1f0d;
+            border: 3px solid #39ff14;
+            box-shadow: 0 0 30px #39ff14, inset 0 0 30px #050505;
+        }
+
+        /* Each path is positioned on the map like a location */
+        .path-btn {
+            position: absolute;
+            background-color: transparent;
+            border: 2px solid #39ff14;
+            color: #39ff14;
+            font-family: 'Creepster', cursive;
+            font-size: 1em;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover glow effect */
+        .path-btn:hover {
+            background-color: #39ff14;
+            color: #050505;
+            box-shadow: 0 0 15px #39ff14;
+        }
+
+        /* Shadow Path — top left of the map */
+        .shadow {
+            top: 40px;
+            left: 40px;
+        }
+
+        /* Whispering Trail — middle right of the map */
+        .whisper {
+            top: 170px;
+            right: 60px;
+        }
+
+        /* Trail of Bones — bottom center of the map */
+        .bones {
+            bottom: 40px;
+            left: 220px;
+        }
+
+        /* Dotted lines connecting the paths — like a treasure map! */
+        .map-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* A mysterious title on the map itself */
+        .map-title {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #1a8c00;
+            font-family: 'Creepster', cursive;
+            font-size: 0.9em;
+            letter-spacing: 3px;
+            white-space: nowrap;
+        }
+
+        /* Small coordinate markers like a real map */
+        .marker {
+            position: absolute;
+            color: #1a8c00;
+            font-size: 0.7em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🗺️ The Map of No Return</h1>
+    <p>The map materialized out of thin air. Typical forest behavior.</p>
+
+    <!-- The actual map -->
+    <div class="map-container">
+
+        <!-- Map title watermark -->
+        <span class="map-title">~ MANHUNT FOREST ~</span>
+
+        <!-- Dotted SVG lines connecting paths like a real treasure map -->
+        <svg class="map-lines" xmlns="http://www.w3.org/2000/svg">
+            <!-- Line from Shadow Path to Whispering Trail -->
+            <line x1="140" y1="70" x2="440" y2="190" 
+                stroke="#39ff14" stroke-width="1" 
+                stroke-dasharray="8,6" opacity="0.4"/>
+            <!-- Line from Whispering Trail to Trail of Bones -->
+            <line x1="450" y1="210" x2="320" y2="350" 
+                stroke="#39ff14" stroke-width="1" 
+                stroke-dasharray="8,6" opacity="0.4"/>
+            <!-- Line from Shadow Path to Trail of Bones -->
+            <line x1="130" y1="80" x2="290" y2="350" 
+                stroke="#39ff14" stroke-width="1" 
+                stroke-dasharray="8,6" opacity="0.4"/>
+        </svg>
+
+        <!-- Coordinate markers -->
+        <span class="marker" style="top:15px; left:15px;">N↑</span>
+        <span class="marker" style="bottom:10px; right:15px;">S↓</span>
+        <span class="marker" style="top:50%; left:8px;">W←</span>
+        <span class="marker" style="top:50%; right:8px;">→E</span>
+
+        <!-- Three path buttons positioned on the map -->
+        <a href="/path/shadow">
+            <button class="path-btn shadow">🌑 Shadow Path</button>
+        </a>
+
+        <a href="/path/whisper">
+            <button class="path-btn whisper">💨 Whispering Trail</button>
+        </a>
+
+        <a href="/path/bones">
+            <button class="path-btn bones">💀 Trail of Bones</button>
+        </a>
+
+    </div>
+
+    <p><em>"The coward takes the brightest path. The wise take the darkest." 🕯️</em></p>
+
+    <!-- Secret door — hidden by default, only appears when all 3 paths are solved -->
+    <div id="secretDoor" style="display:none; margin: 30px auto;">
+        <p style="color: #39ff14; font-family: 'Creepster', cursive; 
+        font-size: 1.5em; text-shadow: 0 0 15px #39ff14;">
+            🚪 A door has appeared where there was only darkness...
+        </p>
+        <a href="/secret">
+            <button style="font-size: 1.3em;">🗝️ Enter the Secret Chamber</button>
+        </a>
+    </div>
+
+    <br>
+    <a href="/"><button>⬅️ Flee back to safety</button></a>
+
+</body>
+<script>
+    // Every time the map loads, check the browser notebook
+    window.onload = function() {
+        const shadowSolved = localStorage.getItem('shadow_solved');
+        const whisperSolved = localStorage.getItem('whisper_solved');
+        const bonesSolved = localStorage.getItem('bones_solved');
+
+        // If all three are ticked — reveal the secret door! 🚪
+        if (shadowSolved && whisperSolved && bonesSolved) {
+            document.getElementById('secretDoor').style.display = 'block';
+        }
+    }
+</script>
+</html>

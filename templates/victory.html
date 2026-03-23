@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manhunt | You Got Him!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Victory box */
+        .victory-box {
+            border: 2px solid #39ff14;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animated criminal scene */
+        .scene {
+            font-size: 5em;
+            margin: 20px 0;
+            animation: sceneEntrance 1s ease;
+        }
+
+        @keyframes sceneEntrance {
+            from { transform: scale(0); opacity: 0; }
+            to   { transform: scale(1); opacity: 1; }
+        }
+
+        /* Criminal in chains animation */
+        .criminal {
+            display: inline-block;
+            animation: struggle 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes struggle {
+            from { transform: rotate(-5deg) translateX(-3px); }
+            to   { transform: rotate(5deg) translateX(3px); }
+        }
+
+        /* Police officer animation */
+        .officer {
+            display: inline-block;
+            animation: proud 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes proud {
+            from { transform: translateY(0px); }
+            to   { transform: translateY(-8px); }
+        }
+
+        /* Victory title */
+        .victory-title {
+            font-family: 'Creepster', cursive;
+            font-size: 2.5em;
+            color: #39ff14;
+            text-shadow: 0 0 20px #39ff14, 0 0 40px #39ff14;
+            margin: 20px 0;
+        }
+
+        /* Stats */
+        .stats {
+            font-family: 'Creepster', cursive;
+            font-size: 1em;
+            color: #1a8c00;
+            line-height: 2;
+            letter-spacing: 1px;
+        }
+
+        /* Play again button */
+        .play-again {
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+
+        <h1>🏆 MANHUNT COMPLETE</h1>
+
+        <div class="victory-box">
+
+         <!-- Animated scene -->
+            <div class="scene">
+                <span class="officer">👮🏾‍♀️</span>
+                <span class="criminal">🦹🏾‍♂️</span>
+                ⛓️
+            </div>
+
+        <!-- Victory title -->
+            <p class="victory-title">Congratulations. You actually got him! </p>
+
+            <!-- Humorous congratulations -->
+            <p style="font-family:'Raleway', sans-serif; font-size:1.1em; 
+            color:#39ff14; line-height:2; font-weight:300; letter-spacing:1px;">
+                Against all odds & logic,<br>
+                you survived the forest and caught the criminal.<br><br>
+                <em style="font-size:0.95em; color:#1a8c00;">
+                The criminal is not impressed.<br>
+                The forest claims it let you win.<br>
+                We both know that's a lie. 😈
+                </em>
+            </p>
+
+            <!-- Divider -->
+            <hr style="border-color: #1a8c00; margin: 20px 0;">
+
+            <!-- Fun stats -->
+            <div class="stats">
+                🌿 Forests survived: 1<br>
+                💀 Puzzles conquered: 3 + 1 bonus<br>
+                🔐 Codes cracked: 1<br>
+                😈 Times the forest underestimated you: Countless<br>
+            </div>
+
+            <!-- Play again -->
+            <br>
+            <a href="/quest">
+                <button class="play-again">🔄 Dare to do it again?</button>
+            </a>
+            <a href="/">
+                <button class="play-again">🌲 Return to the forest entrance</button>
+            </a>
+
+        </div>
+
+    </div>
+</body>
+
+</html>

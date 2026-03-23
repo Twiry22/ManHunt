@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manhunt | The Whispering Trail</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* The ghost — faded in the background */
+        .ghost {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20em;
+            opacity: 0.06;
+            color: #a8a8a8;
+            pointer-events: none;
+            animation: ghostFloat 6s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        /* Ghost floating animation */
+        @keyframes ghostFloat {
+            0%   { transform: translate(-50%, -50%); }
+            50%  { transform: translate(-50%, -55%); }
+            100% { transform: translate(-50%, -50%); }
+        }
+
+        /* All content sits above the ghost */
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* The cryptic clue box */
+        .clue-box {
+            border: 2px solid #39ff14;
+            max-width: 520px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* Scary but readable font styling */
+        .clue-text {
+            font-family: 'Creepster', cursive;
+            font-size: 1.4em;
+            color: #39ff14;
+            line-height: 2;
+            text-shadow: 0 0 10px #39ff14;
+            letter-spacing: 2px;
+        }
+
+        /* Answer input */
+        .answer-input {
+            background: transparent;
+            border: 1px solid #39ff14;
+            color: #39ff14;
+            padding: 10px;
+            font-size: 1em;
+            width: 60%;
+            text-align: center;
+            font-family: 'Creepster', cursive;
+            letter-spacing: 2px;
+        }
+
+        /* Feedback text */
+        #feedback {
+            font-family: 'Creepster', cursive;
+            font-size: 1.2em;
+            margin-top: 15px;
+            letter-spacing: 2px;
+        }
+
+        /* Hint button — hidden by default */
+        .hint-btn {
+            display: none;
+            background: transparent;
+            border: 1px solid #1a8c00;
+            color: #1a8c00;
+            font-family: 'Creepster', cursive;
+            font-size: 1em;
+            padding: 8px 15px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .hint-btn:hover {
+            background-color: #1a8c00;
+            color: #050505;
+        }
+
+        /* Hint texts — hidden by default */
+        #hint1, #hint2 {
+            display: none;
+            font-family: 'Creepster', cursive;
+            font-size: 1em;
+            color: #1a8c00;
+            margin-top: 10px;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- The faded ghost in the background -->
+    <div class="ghost">👻</div>
+
+    <!-- All page content -->
+    <div class="content">
+
+        <h1>💨 The Whispering Trail</h1>
+
+        <p>Something is here. You can't see it. But it can see you.</p>
+
+        <!-- The cryptic clue box -->
+        <div class="clue-box">
+
+            <p class="clue-text">
+                "I am never seen but always felt.<br>
+                I grow stronger in silence.<br>
+                I live between your heartbeats.<br>
+                I am what the forest feeds on.<br>
+                What am I?" 👻
+            </p>
+
+            <!-- Answer input -->
+            <input
+                type="text"
+                id="answer"
+                class="answer-input"
+                placeholder="Whisper your answer...">
+
+            <br><br>
+            <button onclick="checkAnswer()">💨 Submit</button>
+
+            <!-- Feedback -->
+            <p id="feedback"></p>
+
+            <!-- Hint button — only appears after first failed attempt -->
+            <button class="hint-btn" id="hintBtn" onclick="showHint()">
+                👻 I need a hint...
+            </button>
+
+            <!-- First hint -->
+            <p id="hint1">"It is not a monster. It is not a person. It lives inside every living thing... and grows when no one speaks." 💨</p>
+
+            <!-- Second hint -->
+            <p id="hint2">"You felt it when you first entered this forest. That thing that made you hesitate at the gate." 😈</p>
+
+        </div>
+
+        <br>
+        <a href="/map"><button>⬅️ Back to the Map</button></a>
+
+    </div>
+
+</body>
+
+<script>
+    // Track how many times player has failed
+    let attempts = 0;
+
+    function checkAnswer() {
+        const answer = document.getElementById('answer').value.toLowerCase();
+        const feedback = document.getElementById('feedback');
+
+        if (answer === 'fear' || answer === 'silence' || answer === 'darkness') {
+            feedback.style.color = '#39ff14';
+            feedback.innerHTML = '✅ You heard what others could not. 👻😈';
+            // Hide hint button if they finally got it
+            document.getElementById('hintBtn').style.display = 'none';
+            // Mark whisper path as solved in the browser notebook
+            localStorage.setItem('whisper_solved', 'true');
+        } else {
+            feedback.style.color = '#8b0000';
+            feedback.innerHTML = '❌ The forest is losing patience. 😈';
+            // Count the failed attempt
+            attempts++;
+            // Show hint button after first failure
+            if (attempts >= 1) {
+                document.getElementById('hintBtn').style.display = 'inline-block';
+            }
+        }
+    }
+
+    // Track which hint we are on
+    let hintLevel = 0;
+
+    function showHint() {
+        hintLevel++;
+        if (hintLevel === 1) {
+            // Show first hint
+            document.getElementById('hint1').style.display = 'block';
+        } else if (hintLevel === 2) {
+            // Show second hint
+            document.getElementById('hint2').style.display = 'block';
+            // Hide hint button after second hint — no more help! 😈
+            document.getElementById('hintBtn').style.display = 'none';
+        }
+    }
+</script>
+
+</html>

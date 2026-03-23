@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<!-- This tells the browser: "Hey, this is an HTML file" -->
-
 <html>
-<!-- Everything in your webpage lives inside these html tags -->
-
 <head>
-    <!-- The head is invisible to visitors — it holds background info about the page -->
-    <title>Where's My Johnny</title>
-    <!-- This is the text that appears on the browser tab -->
+    <title>Manhunt | You Shouldn't Be Here</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
-    <!-- Everything inside body is what visitors actually SEE on the page -->
 
-    <h1>🌲 Welcome to the Puzzle Forest</h1>
-    <!-- h1 = the biggest heading on the page, like a title -->
+    <!-- Main spooky title -->
+    <h1>🌿 You've Entered the Manhunt Forest</h1>
 
-    <p>Your quest begins here...</p>
-    <!-- p = a paragraph of text -->
+   <!-- Dark humorous subtitle -->
+    <p>
+        The forest has been expecting you. 
+        It just didn't think you'd be courageous enough to show up. 😈
+
+    <!-- Map button leading to first puzzle -->
+ <a href="/quest">
+        <button>🗺️ Follow the Map... if you dare</button>
+    </a>
 
 </body>
-
 </html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manhunt | Trail of Bones</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* The skeleton — faded in the background */
+        .skeleton {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20em;
+            opacity: 0.06;
+            color: #a8a8a8;
+            pointer-events: none;
+            animation: skeletonPulse 4s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        /* Skeleton pulse animation — like it's breathing */
+        @keyframes skeletonPulse {
+            0%   { opacity: 0.04; transform: translate(-50%, -50%) scale(1); }
+            50%  { opacity: 0.08; transform: translate(-50%, -50%) scale(1.05); }
+            100% { opacity: 0.04; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* All content sits above the skeleton */
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* The puzzle box */
+        .puzzle-box {
+            border: 2px solid #39ff14;
+            max-width: 520px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* Puzzle text */
+        .puzzle-text {
+            font-family: 'Creepster', cursive;
+            font-size: 1.4em;
+            color: #39ff14;
+            line-height: 2;
+            text-shadow: 0 0 10px #39ff14;
+            letter-spacing: 2px;
+        }
+
+        /* Number sequence display */
+        .sequence {
+            font-family: 'Creepster', cursive;
+            font-size: 2em;
+            color: #39ff14;
+            text-shadow: 0 0 15px #39ff14;
+            letter-spacing: 10px;
+            margin: 20px 0;
+        }
+
+        /* Answer input */
+        .answer-input {
+            background: transparent;
+            border: 1px solid #39ff14;
+            color: #39ff14;
+            padding: 10px;
+            font-size: 1.5em;
+            width: 30%;
+            text-align: center;
+            font-family: 'Creepster', cursive;
+            letter-spacing: 2px;
+        }
+
+        /* Feedback text */
+        #feedback {
+            font-family: 'Creepster', cursive;
+            font-size: 1.2em;
+            margin-top: 15px;
+            letter-spacing: 2px;
+        }
+
+        /* Hint button — hidden by default */
+        .hint-btn {
+            display: none;
+            background: transparent;
+            border: 1px solid #1a8c00;
+            color: #1a8c00;
+            font-family: 'Creepster', cursive;
+            font-size: 1em;
+            padding: 8px 15px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .hint-btn:hover {
+            background-color: #1a8c00;
+            color: #050505;
+        }
+
+        /* Hint texts — hidden by default */
+        #hint1, #hint2 {
+            display: none;
+            font-family: 'Creepster', cursive;
+            font-size: 1em;
+            color: #1a8c00;
+            margin-top: 10px;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- The faded skeleton in the background -->
+    <div class="skeleton">💀</div>
+
+    <!-- All page content -->
+    <div class="content">
+
+        <h1>💀 The Trail of Bones</h1>
+
+        <p>The bones of those who failed are watching. No pressure. 😈</p>
+
+        <!-- The puzzle box -->
+        <div class="puzzle-box">
+
+            <p class="puzzle-text">
+                "The bones are arranged in a pattern.<br>
+                Only the worthy can see what comes next.<br>
+                Complete the sequence or join the bones forever." 💀
+            </p>
+
+            <!-- The number sequence -->
+            <div class="sequence">2 — 6 — 18 — 54 — ?</div>
+
+            <p style="color: #1a8c00; font-size: 0.9em;">
+                Each bone is connected to the last. Find the pattern. Enter the next number.
+            </p>
+
+            <!-- Answer input -->
+            <input
+                type="number"
+                id="answer"
+                class="answer-input"
+                placeholder="?">
+
+            <br><br>
+            <button onclick="checkAnswer()">💀 Submit</button>
+
+            <!-- Feedback -->
+            <p id="feedback"></p>
+
+            <!-- Hint button — only appears after first failed attempt -->
+            <button class="hint-btn" id="hintBtn" onclick="showHint()">
+                🦴 I need a hint...
+            </button>
+
+            <!-- First hint -->
+            <p id="hint1">"The bones don't add... they multiply. Look at how each number grows from the last." 💀</p>
+
+            <!-- Second hint -->
+            <p id="hint2">"Each bone is exactly 3 times the one before it. What is 54 times 3?" 🦴</p>
+
+        </div>
+
+        <br>
+        <a href="/map"><button>⬅️ Back to the Map</button></a>
+
+    </div>
+
+</body>
+
+<script>
+    // Track failed attempts
+    let attempts = 0;
+
+    function checkAnswer() {
+        const answer = parseInt(document.getElementById('answer').value);
+        const feedback = document.getElementById('feedback');
+
+        // Correct answer is 162 (54 x 3)
+        if (answer === 162) {
+            feedback.style.color = '#39ff14';
+            feedback.innerHTML = '✅ The bones part. You have earned your passage... this time. 💀😈';
+            document.getElementById('hintBtn').style.display = 'none';
+            // Mark bones path as solved in the browser notebook
+            localStorage.setItem('bones_solved', 'true');
+        } else {
+            feedback.style.color = '#8b0000';
+            feedback.innerHTML = '❌ A bone snaps beneath your feet. Wrong answer. Try again. 💀';
+            attempts++;
+            // Show hint button after first failure
+            if (attempts >= 1) {
+                document.getElementById('hintBtn').style.display = 'inline-block';
+            }
+        }
+    }
+
+    // Track which hint we are on
+    let hintLevel = 0;
+
+    function showHint() {
+        hintLevel++;
+        if (hintLevel === 1) {
+            document.getElementById('hint1').style.display = 'block';
+        } else if (hintLevel === 2) {
+            document.getElementById('hint2').style.display = 'block';
+            // No more hints after second one 😈
+            document.getElementById('hintBtn').style.display = 'none';
+        }
+    }
+</script>
+
+</html>

@@ -1,0 +1,65 @@
+/* Importing two fonts — one creepy, one readable */
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Raleway:wght@300;400&display=swap');
+
+/* The entire page */
+body {
+    /* Deep black background — like the forest at 3am */
+    background-color: #050505;
+    font-family: 'Raleway', sans-serif;
+    /* Toxic green as our main text color */
+    color: #39ff14;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main title */
+h1 {
+    font-family: 'Creepster', cursive;
+    /* Bright toxic green */
+    color: #39ff14;
+    font-size: 3.5em;
+    margin-top: 50px;
+    /* Glowing toxic green shadow */
+    text-shadow: 0 0 20px #39ff14, 0 0 40px #39ff14;
+}
+
+/* Subtitle paragraph */
+p {
+    font-size: 1.2em;
+    /* Slightly dimmer green for contrast */
+    color: #1a8c00;
+    font-style: italic;
+    /* A little breathing room */
+    margin: 20px auto;
+    /* Keeps text from stretching too wide */
+    max-width: 600px;
+    line-height: 1.8;
+}
+
+/* The map button */
+button {
+    /* Toxic green border */
+    border: 2px solid #39ff14;
+    /* Transparent inside */
+    background-color: transparent;
+    color: #39ff14;
+    font-family: 'Creepster', cursive;
+    font-size: 1.5em;
+    padding: 12px 30px;
+    /* Makes it feel clickable */
+    cursor: pointer;
+    /* Smooth glow effect on hover */
+    transition: all 0.3s ease;
+    margin-top: 30px;
+}
+
+/* What happens when you hover over the button */
+button:hover {
+    /* Fills with toxic green on hover */
+    background-color: #39ff14;
+    /* Text flips to black */
+    color: #050505;
+    /* Intensifies the glow */
+    box-shadow: 0 0 20px #39ff14;
+}

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manhunt | The Quest</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Background creatures — faded */
+        .bg-creature {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20em;
+            opacity: 0.06;
+            color: #a8a8a8;
+            pointer-events: none;
+            z-index: 0;
+            transition: all 1s ease;
+            animation: creatureFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes creatureFloat {
+            0%   { transform: translate(-50%, -50%); }
+            50%  { transform: translate(-50%, -55%); }
+            100% { transform: translate(-50%, -50%); }
+        }
+
+        /* All content sits above background */
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Puzzle box */
+        .puzzle-box {
+            border: 2px solid #39ff14;
+            max-width: 560px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Puzzle text */
+        .puzzle-text {
+            font-family: 'Creepster', cursive;
+            font-size: 1.3em;
+            color: #39ff14;
+            line-height: 2;
+            text-shadow: 0 0 10px #39ff14;
+            letter-spacing: 2px;
+        }
+
+        /* Number sequence */
+        .sequence {
+            font-family: 'Creepster', cursive;
+            font-size: 2em;
+            color: #39ff14;
+            text-shadow: 0 0 15px #39ff14;
+            letter-spacing: 10px;
+            margin: 20px 0;
+        }
+
+        /* Answer input */
+        .answer-input {
+            background: transparent;
+            border: 1px solid #39ff14;
+            color: #39ff14;
+            padding: 10px;
+            font-size: 1em;
+            width: 60%;
+            text-align: center;
+            font-family: 'Creepster', cursive;
+            letter-spacing: 2px;
+        }
+
+        /* Feedback text */
+        .feedback {
+            font-family: 'Creepster', cursive;
+            font-size: 1.2em;
+            margin-top: 15px;
+            letter-spacing: 2px;
+        }
+
+        /* Hint button */
+        .hint-btn {
+            display: none;
+            background: transparent;
+            border: 1px solid #1a8c00;
+            color: #1a8c00;
+            font-family: 'Creepster', cursive;
+            font-size: 1em;
+            padding: 8px 15px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .hint-btn:hover {
+            background-color: #1a8c00;
+            color: #050505;
+        }
+
+        /* Hint texts */
+        .hint-text {
+            display: none;
+            font-family: 'Creepster', cursive;
+            font-size: 1em;
+            color: #1a8c00;
+            margin-top: 10px;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+
+        /* Progress tracker */
+        .progress {
+            font-family: 'Creepster', cursive;
+            font-size: 1.1em;
+            color: #1a8c00;
+            margin: 10px 0;
+            letter-spacing: 2px;
+        }
+
+        /* Secret door — hidden by default */
+        #secretDoor {
+            display: none;
+            margin: 30px auto;
+            animation: fadeIn 2s ease;
+        }
+
+        /* Next puzzle transition message */
+        .transition-msg {
+            display: none;
+            font-family: 'Creepster', cursive;
+            font-size: 1.3em;
+            color: #39ff14;
+            text-shadow: 0 0 15px #39ff14;
+            margin: 20px 0;
+            animation: fadeIn 1s ease;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background creature changes per puzzle -->
+    <div class="bg-creature" id="bgCreature">🌑</div>
+
+    <div class="content">
+
+        <h1 id="pageTitle">🌿 The Quest Begins</h1>
+
+        <!-- Progress tracker -->
+        <p class="progress" id="progressText">☠️ Paths conquered: 0 of 3</p>
+
+        <!-- Transition message between puzzles -->
+        <p class="transition-msg" id="transitionMsg"></p>
+
+       <!-- ========================= -->
+        <!-- PUZZLE 1: WHISPERING TRAIL-->
+        <!-- ========================= -->
+        <div class="puzzle-box" id="puzzle1">
+
+            <h2 style="color:#39ff14; font-family:'Creepster',cursive;">
+                💨 The Whispering Trail
+            </h2>
+
+            <p>Something is here. You can't see it. But it can see you.</p>
+
+            <p class="puzzle-text">
+                "I am never seen but always felt.<br>
+                I grow stronger in silence.<br>
+                I live between your heartbeats.<br>
+                I am what the forest feeds on.<br>
+                What am I?" 👻
+            </p>
+
+            <input type="text" id="whisper_answer" class="answer-input"
+                placeholder="Whisper your answer...">
+
+            <br><br>
+            <button onclick="checkWhisper()">💨 Submit</button>
+
+            <p class="feedback" id="whisper_feedback"></p>
+
+            <button class="hint-btn" id="whisper_hintBtn" onclick="showWhisperHint()">
+                👻 I need a hint...
+            </button>
+            <p class="hint-text" id="whisper_hint1">
+                "It is not a monster. It lives inside every living thing and grows when no one speaks." 💨
+            </p>
+            <p class="hint-text" id="whisper_hint2">
+                "You felt it when you first entered this forest. That thing that made you hesitate at the gate." 😈
+            </p>
+
+        </div>
+
+        <!-- ====================== -->
+        <!-- PUZZLE 2: TRAIL OF BONES-->
+        <!-- ====================== -->
+        <div class="puzzle-box" id="puzzle2" style="display:none;">
+
+            <h2 style="color:#39ff14; font-family:'Creepster',cursive;">
+                💀 The Trail of Bones
+            </h2>
+
+            <p>The bones of those who failed are watching. No pressure. 😈</p>
+
+            <p class="puzzle-text">
+                "The bones are arranged in a pattern.<br>
+                Only the worthy can see what comes next.<br>
+                Complete the sequence or join the bones forever." 💀
+            </p>
+
+            <div class="sequence">2 — 6 — 18 — 54 — ?</div>
+
+            <p style="color:#1a8c00; font-size:0.9em;">
+                Each bone is connected to the last. Find the pattern. Enter the next number.
+            </p>
+
+            <input type="number" id="bones_answer" class="answer-input"
+                placeholder="?">
+
+            <br><br>
+            <button onclick="checkBones()">💀 Submit</button>
+
+            <p class="feedback" id="bones_feedback"></p>
+
+            <button class="hint-btn" id="bones_hintBtn" onclick="showBonesHint()">
+                🦴 I need a hint...
+            </button>
+            <p class="hint-text" id="bones_hint1">
+                "The bones don't add... they multiply. Look at how each number grows from the last." 💀
+            </p>
+            <p class="hint-text" id="bones_hint2">
+                "Each bone is exactly 3 times the one before it. What is 54 times 3?" 🦴
+            </p>
+
+        </div>
+
+        <!-- ===================== -->
+        <!-- PUZZLE 3: SHADOW PATH -->
+        <!-- ===================== -->
+        <div class="puzzle-box" id="puzzle3" style="display:none;">
+
+            <h2 style="color:#39ff14; font-family:'Creepster',cursive;">
+                🫥 The Shadow Path
+            </h2>
+
+            <p>You chose the darkest path. Bold. Foolish. Impressive.</p>
+
+            <p class="puzzle-text">
+                "I have cities, but no houses live there.<br>
+                I have mountains, but no trees grow there.<br>
+                I have water, but no fish swim there.<br>
+                I have roads, but no cars drive there.<br>
+                What am I?" 🌑
+            </p>
+
+            <input type="text" id="shadow_answer" class="answer-input"
+                placeholder="Whisper your answer...">
+
+            <br><br>
+            <button onclick="checkShadow()">🕯️ Submit</button>
+
+            <p class="feedback" id="shadow_feedback"></p>
+
+            <button class="hint-btn" id="shadow_hintBtn" onclick="showShadowHint()">
+                🕯️ I need a hint...
+            </button>
+            <p class="hint-text" id="shadow_hint1">
+                "Think of something that shows you the world... without being the world." 🌑
+            </p>
+            <p class="hint-text" id="shadow_hint2">
+                "You used one to find this very forest. It has no life, yet it knows every path." 🗺️
+            </p>
+
+        </div>
+
+        <!-- ====================== -->
+        <!-- SECRET DOOR            -->
+        <!-- ====================== -->
+
+        <div id="secretDoor">
+            <p style="font-family:'Creepster',cursive; font-size:1.8em;
+            color:#39ff14; text-shadow: 0 0 20px #39ff14;">
+                               🚪 
+                You didn't just survive the forest...<em>You broke it.</em> 😈
+            </p>
+            <a href="/secret">
+                <button style="font-size:1.3em;">🗝️ Enter the Secret Chamber</button>
+            </a>
+        </div>
+
+        <br>
+        <a href="/"><button>⬅️ Flee back to safety</button></a>
+
+    </div>
+
+</body>
+
+<script>
+    // Track solved puzzles and hint levels
+    let solved = { shadow: false, whisper: false, bones: false };
+    let shadowHintLevel = 0;
+    let whisperHintLevel = 0;
+    let bonesHintLevel = 0;
+    let shadowAttempts = 0;
+    let whisperAttempts = 0;
+    let bonesAttempts = 0;
+
+    // Count how many are solved
+    function countSolved() {
+        return Object.values(solved).filter(Boolean).length;
+    }
+
+    // Update progress text
+    function updateProgress() {
+        const count = countSolved();
+        const messages = [
+            "☠️ Paths conquered: 0 of 3 — The forest is not impressed.",
+            "🌿 Paths conquered: 1 of 3 — Beginner's luck. Probably.",
+            "💀 Paths conquered: 2 of 3 — The forest is getting nervous.",
+            "🏆 Paths conquered: 3 of 3 — You absolute legend. 😈"
+        ];
+        document.getElementById('progressText').innerHTML = messages[count];
+    }
+
+    // Show next puzzle after solving one
+    function showNextPuzzle() {
+        const count = countSolved();
+
+        // Transition messages between puzzles
+        const transitions = [
+            "🌑 The shadow dissolves... but the forest has more in store for you. 😈",
+            "👻 The whisper fades... one final trial awaits. Bones don't lie. 💀",
+        ];
+
+       if (!solved.bones && count === 1) {
+            // Show transition then puzzle 2
+            showTransition(transitions[0], 'puzzle2', '💀', '💀 The Trail of Bones');
+        } else if (!solved.shadow && count === 2) {
+            // Show transition then puzzle 3
+            showTransition(transitions[1], 'puzzle3', '🫥', '🫥 The Shadow Path');
+        } else if (count === 3) {
+            // All solved — show secret door!
+            setTimeout(() => {
+                document.getElementById('secretDoor').style.display = 'block';
+                document.getElementById('bgCreature').innerHTML = '🚪';
+            }, 1500);
+        }
+    }
+
+    // Animate transition between puzzles
+    function showTransition(message, nextPuzzleId, creature, title) {
+        const transMsg = document.getElementById('transitionMsg');
+        transMsg.innerHTML = message;
+        transMsg.style.display = 'block';
+
+        setTimeout(() => {
+            // Change background creature
+            document.getElementById('bgCreature').innerHTML = creature;
+            // Update page title
+            document.getElementById('pageTitle').innerHTML = title;
+            // Show next puzzle
+            document.getElementById(nextPuzzleId).style.display = 'block';
+            // Hide transition message
+            transMsg.style.display = 'none';
+            // Scroll to next puzzle smoothly
+            document.getElementById(nextPuzzleId).scrollIntoView({ behavior: 'smooth' });
+        }, 2500);
+    }
+
+    // =====================
+    // SHADOW PATH FUNCTIONS
+    // =====================
+    function checkShadow() {
+        const answer = document.getElementById('shadow_answer').value.toLowerCase();
+        const feedback = document.getElementById('shadow_feedback');
+
+        if (answer === 'map' || answer === 'a map') {
+            feedback.style.color = '#39ff14';
+            feedback.innerHTML = '✅ The shadow bows reluctantly. It was NOT expecting that. Well played! 😈';
+            document.getElementById('shadow_hintBtn').style.display = 'none';
+            solved.shadow = true;
+            updateProgress();
+            setTimeout(showNextPuzzle, 2000);
+        } else {
+            feedback.style.color = '#8b0000';
+            shadowAttempts++;
+            const failMessages = [
+                "❌ The shadow sighs. That was painfully wrong. Try again. 🌑",
+                "❌ Still wrong. The shadow is embarrassed FOR you. 😈",
+                "❌ The forest is questioning your life choices right now. 💀",
+            ];
+            feedback.innerHTML = failMessages[Math.min(shadowAttempts - 1, 2)];
+            if (shadowAttempts >= 1) {
+                document.getElementById('shadow_hintBtn').style.display = 'inline-block';
+            }
+        }
+    }
+
+    function showShadowHint() {
+        shadowHintLevel++;
+        if (shadowHintLevel === 1) {
+            document.getElementById('shadow_hint1').style.display = 'block';
+        } else if (shadowHintLevel === 2) {
+            document.getElementById('shadow_hint2').style.display = 'block';
+            document.getElementById('shadow_hintBtn').style.display = 'none';
+        }
+    }
+
+    // =======================
+    // WHISPER TRAIL FUNCTIONS
+    // =======================
+    function checkWhisper() {
+        const answer = document.getElementById('whisper_answer').value.toLowerCase();
+        const feedback = document.getElementById('whisper_feedback');
+
+        if (answer === 'fear' || answer === 'silence' || answer === 'darkness') {
+            feedback.style.color = '#39ff14';
+            feedback.innerHTML = '✅ You heard what the forest has whispered for centuries... Remarkable! 👻😈';
+            document.getElementById('whisper_hintBtn').style.display = 'none';
+            solved.whisper = true;
+            updateProgress();
+            setTimeout(showNextPuzzle, 2000);
+        } else {
+            feedback.style.color = '#8b0000';
+            whisperAttempts++;
+            const failMessages = [
+                "❌ The ghost shakes its head disapprovingly. Wrong. Very wrong. 👻",
+                "❌ Even the trees are cringing. Try again. 💨",
+                "❌ The whisper grows louder. The forest is losing patience with you. 😈",
+            ];
+            feedback.innerHTML = failMessages[Math.min(whisperAttempts - 1, 2)];
+            if (whisperAttempts >= 1) {
+                document.getElementById('whisper_hintBtn').style.display = 'inline-block';
+            }
+        }
+    }
+
+    function showWhisperHint() {
+        whisperHintLevel++;
+        if (whisperHintLevel === 1) {
+            document.getElementById('whisper_hint1').style.display = 'block';
+        } else if (whisperHintLevel === 2) {
+            document.getElementById('whisper_hint2').style.display = 'block';
+            document.getElementById('whisper_hintBtn').style.display = 'none';
+        }
+    }
+
+    // ======================
+    // TRAIL OF BONES FUNCTIONS
+    // ======================
+    function checkBones() {
+        const answer = parseInt(document.getElementById('bones_answer').value);
+        const feedback = document.getElementById('bones_feedback');
+
+        if (answer === 162) {
+            feedback.style.color = '#39ff14';
+            feedback.innerHTML = '✅ You have the audacity to actually be smart. 💀😈';
+            document.getElementById('bones_hintBtn').style.display = 'none';
+            solved.bones = true;
+            updateProgress();
+            setTimeout(showNextPuzzle, 2000);
+        } else {
+            feedback.style.color = '#8b0000';
+            bonesAttempts++;
+            const failMessages = [
+                "❌ A bone snaps beneath your feet. Nope. Try again. 💀",
+                "❌ The skeleton rattles with laughter. Still wrong. 🦴",
+                "❌ Even the dead are facepalming right now. 😈",
+            ];
+            feedback.innerHTML = failMessages[Math.min(bonesAttempts - 1, 2)];
+            if (bonesAttempts >= 1) {
+                document.getElementById('bones_hintBtn').style.display = 'inline-block';
+            }
+        }
+    }
+
+    function showBonesHint() {
+        bonesHintLevel++;
+        if (bonesHintLevel === 1) {
+            document.getElementById('bones_hint1').style.display = 'block';
+        } else if (bonesHintLevel === 2) {
+            document.getElementById('bones_hint2').style.display = 'block';
+            document.getElementById('bones_hintBtn').style.display = 'none';
+        }
+    }
+</script>
+
+</html>
