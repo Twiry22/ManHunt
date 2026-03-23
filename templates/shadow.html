@@ -6,7 +6,7 @@
     <style>
         /* The puzzle box */
         .puzzle-box {
-            border: 2px solid #39ff14;
+            border: 2px solid #2db30f;
             max-width: 500px;
             margin: 30px auto;
             padding: 25px;
@@ -17,17 +17,17 @@
         .riddle-text {
             font-family: 'Creepster', cursive;
             font-size: 1.3em;
-            color: #39ff14;
+            color: #2db30f;
             line-height: 2;
-            text-shadow: 0 0 10px #39ff14;
+            text-shadow: 0 0 10px #2db30f;
             letter-spacing: 2px;
         }
 
         /* Answer input */
         .answer-input {
             background: transparent;
-            border: 1px solid #39ff14;
-            color: #39ff14;
+            border: 1px solid #2db30f;
+            color: #2db30f;
             padding: 10px;
             font-size: 1em;
             width: 60%;
@@ -134,7 +134,7 @@
         const feedback = document.getElementById('feedback');
 
         if (answer === 'map' || answer === 'a map') {
-            feedback.style.color = '#39ff14';
+            feedback.style.color = '#2db30f';
             feedback.innerHTML = '✅ The shadow bows. You may pass... for now. 😈';
             // Hide hint button if they finally got it
             document.getElementById('hintBtn').style.display = 'none';

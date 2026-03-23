@@ -3,63 +3,112 @@
 
 /* The entire page */
 body {
-    /* Deep black background — like the forest at 3am */
     background-color: #050505;
     font-family: 'Raleway', sans-serif;
-    /* Toxic green as our main text color */
-    color: #39ff14;
+    color: #2db30f;
     text-align: center;
     margin: 0;
-    padding: 0;
+    padding: 0 15px;
+    /* Prevents horizontal scrolling on phones */
+    overflow-x: hidden;
+    /* Better text rendering on phones */
+    -webkit-font-smoothing: antialiased;
 }
 
 /* Main title */
 h1 {
     font-family: 'Creepster', cursive;
-    /* Bright toxic green */
-    color: #39ff14;
-    font-size: 3.5em;
-    margin-top: 50px;
-    /* Glowing toxic green shadow */
-    text-shadow: 0 0 20px #39ff14, 0 0 40px #39ff14;
+    color: #2db30f;
+    /* Scales down nicely on small screens */
+    font-size: clamp(1.8em, 6vw, 3.5em);
+    margin-top: 40px;
+    /* Reduced glow — less reflection, still spooky */
+    text-shadow: 0 0 8px rgba(45, 179, 15, 0.6);
 }
 
 /* Subtitle paragraph */
 p {
-    font-size: 1.2em;
-    /* Slightly dimmer green for contrast */
+    /* Scales between 1em and 1.2em depending on screen */
+    font-size: clamp(0.95em, 3vw, 1.2em);
     color: #1a8c00;
     font-style: italic;
-    /* A little breathing room */
-    margin: 20px auto;
-    /* Keeps text from stretching too wide */
+    margin: 15px auto;
     max-width: 600px;
     line-height: 1.8;
 }
 
-/* The map button */
+/* The map button and all general buttons */
 button {
-    /* Toxic green border */
-    border: 2px solid #39ff14;
-    /* Transparent inside */
+    border: 2px solid #2db30f;
     background-color: transparent;
-    color: #39ff14;
+    color: #2db30f;
     font-family: 'Creepster', cursive;
-    font-size: 1.5em;
-    padding: 12px 30px;
-    /* Makes it feel clickable */
+    /* Scales on small screens */
+    font-size: clamp(1em, 4vw, 1.5em);
+    padding: 12px 25px;
     cursor: pointer;
-    /* Smooth glow effect on hover */
     transition: all 0.3s ease;
-    margin-top: 30px;
+    margin-top: 20px;
+    /* Makes buttons easier to tap on phones */
+    min-height: 48px;
+    /* Prevents buttons from overflowing on small screens */
+    max-width: 100%;
 }
 
-/* What happens when you hover over the button */
+/* Button hover effect */
 button:hover {
-    /* Fills with toxic green on hover */
-    background-color: #39ff14;
-    /* Text flips to black */
+    background-color: #2db30f;
     color: #050505;
-    /* Intensifies the glow */
-    box-shadow: 0 0 20px #39ff14;
+    /* Reduced glow on hover */
+    box-shadow: 0 0 10px rgba(45, 179, 15, 0.5);
+}
+
+/* Makes all inputs mobile friendly */
+input {
+    /* Prevents iOS from zooming in on input focus */
+    font-size: 16px !important;
+    max-width: 90%;
+}
+
+/* Responsive container for all pages */
+.puzzle-box, .clue-box, .codex-box, .victory-box {
+    /* Shrinks nicely on small screens */
+    width: 90% !important;
+    max-width: 560px !important;
+    box-sizing: border-box;
+    margin: 20px auto !important;
+    padding: 20px !important;
+}
+
+/* Mobile specific adjustments */
+@media (max-width: 600px) {
+    h1 {
+        margin-top: 25px;
+    }
+
+    button {
+        /* Full width buttons on small screens — easier to tap */
+        width: 90%;
+        margin: 10px auto;
+        display: block;
+    }
+
+    /* Map container scales down on phones */
+    .map-container {
+        width: 95vw !important;
+        height: 65vw !important;
+    }
+
+    /* Sliding puzzle scales down on phones */
+    .puzzle-container {
+        width: 90vw !important;
+        height: 90vw !important;
+    }
+
+    /* Tiles scale with puzzle container */
+    .tile {
+        width: 30vw !important;
+        height: 30vw !important;
+        font-size: 1.8em !important;
+    }
 }

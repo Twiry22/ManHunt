@@ -12,16 +12,16 @@
             margin: 30px auto;
             /* Dark green parchment feel */
             background-color: #0d1f0d;
-            border: 3px solid #39ff14;
-            box-shadow: 0 0 30px #39ff14, inset 0 0 30px #050505;
+            border: 3px solid #2db30f;
+            box-shadow: 0 0 30px #2db30f, inset 0 0 30px #050505;
         }
 
         /* Each path is positioned on the map like a location */
         .path-btn {
             position: absolute;
             background-color: transparent;
-            border: 2px solid #39ff14;
-            color: #39ff14;
+            border: 2px solid #2db30f;
+            color: #2db30f;
             font-family: 'Creepster', cursive;
             font-size: 1em;
             padding: 10px 15px;
@@ -31,9 +31,9 @@
 
         /* Hover glow effect */
         .path-btn:hover {
-            background-color: #39ff14;
+            background-color: #2db30f;
             color: #050505;
-            box-shadow: 0 0 15px #39ff14;
+            box-shadow: 0 0 15px #2db30f;
         }
 
         /* Shadow Path — top left of the map */
@@ -100,15 +100,15 @@
         <svg class="map-lines" xmlns="http://www.w3.org/2000/svg">
             <!-- Line from Shadow Path to Whispering Trail -->
             <line x1="140" y1="70" x2="440" y2="190" 
-                stroke="#39ff14" stroke-width="1" 
+                stroke="#2db30f" stroke-width="1" 
                 stroke-dasharray="8,6" opacity="0.4"/>
             <!-- Line from Whispering Trail to Trail of Bones -->
             <line x1="450" y1="210" x2="320" y2="350" 
-                stroke="#39ff14" stroke-width="1" 
+                stroke="#2db30f" stroke-width="1" 
                 stroke-dasharray="8,6" opacity="0.4"/>
             <!-- Line from Shadow Path to Trail of Bones -->
             <line x1="130" y1="80" x2="290" y2="350" 
-                stroke="#39ff14" stroke-width="1" 
+                stroke="#2db30f" stroke-width="1" 
                 stroke-dasharray="8,6" opacity="0.4"/>
         </svg>
 
@@ -137,8 +137,8 @@
 
     <!-- Secret door — hidden by default, only appears when all 3 paths are solved -->
     <div id="secretDoor" style="display:none; margin: 30px auto;">
-        <p style="color: #39ff14; font-family: 'Creepster', cursive; 
-        font-size: 1.5em; text-shadow: 0 0 15px #39ff14;">
+        <p style="color: #2db30f; font-family: 'Creepster', cursive; 
+        font-size: 1.5em; text-shadow: 0 0 15px #2db30f;">
             🚪 A door has appeared where there was only darkness...
         </p>
         <a href="/secret">
