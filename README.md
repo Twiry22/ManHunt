@@ -21,7 +21,7 @@ It is imperative to know that the forest doesn't give up its secrets easily, hen
 
 ## Play the Game
 
- [Click here to play Manhunt Quest]
+ [Click here to play Manhunt Quest](https://manhunt-38yi.onrender.com/)
 
 ## Author
 
