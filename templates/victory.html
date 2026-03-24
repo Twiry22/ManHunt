@@ -9,7 +9,6 @@
             z-index: 1;
         }
 
-        /* Victory box */
         .victory-box {
             border: 2px solid #2db30f;
             max-width: 600px;
@@ -24,7 +23,6 @@
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* Animated criminal scene */
         .scene {
             font-size: 5em;
             margin: 20px 0;
@@ -36,7 +34,6 @@
             to   { transform: scale(1); opacity: 1; }
         }
 
-        /* Criminal in chains animation */
         .criminal {
             display: inline-block;
             animation: struggle 0.5s ease-in-out infinite alternate;
@@ -47,7 +44,6 @@
             to   { transform: rotate(5deg) translateX(3px); }
         }
 
-        /* Police officer animation */
         .officer {
             display: inline-block;
             animation: proud 1.5s ease-in-out infinite alternate;
@@ -58,7 +54,6 @@
             to   { transform: translateY(-8px); }
         }
 
-        /* Victory title */
         .victory-title {
             font-family: 'Creepster', cursive;
             font-size: 2.5em;
@@ -67,7 +62,6 @@
             margin: 20px 0;
         }
 
-        /* Stats */
         .stats {
             font-family: 'Creepster', cursive;
             font-size: 1em;
@@ -76,7 +70,6 @@
             letter-spacing: 1px;
         }
 
-        /* Play again button */
         .play-again {
             font-size: 1.2em;
             margin-top: 20px;
@@ -91,32 +84,27 @@
 
         <div class="victory-box">
 
-         <!-- Animated scene -->
             <div class="scene">
                 <span class="officer">👮🏾‍♀️</span>
                 <span class="criminal">🦹🏾‍♂️</span>
                 ⛓️
             </div>
 
-        <!-- Victory title -->
             <p class="victory-title">Congratulations. You actually got him! </p>
 
-            <!-- Humorous congratulations -->
             <p style="font-family:'Raleway', sans-serif; font-size:1.1em; 
             color:#2db30f; line-height:2; font-weight:300; letter-spacing:1px;">
-                Against all odds & logic,<br>
-                you survived the forest and caught the criminal.<br><br>
+                Against all odds & trouble,<br>
+                you survived the forest and caught Johnny.<br><br>
                 <em style="font-size:0.95em; color:#1a8c00;">
-                The criminal is not impressed.<br>
+                Johnny is not impressed.<br>
                 The forest claims it let you win.<br>
                 We both know that's a lie. 😈
                 </em>
             </p>
 
-            <!-- Divider -->
             <hr style="border-color: #1a8c00; margin: 20px 0;">
 
-            <!-- Fun stats -->
             <div class="stats">
                 🌿 Forests survived: 1<br>
                 💀 Puzzles conquered: 3 + 1 bonus<br>
@@ -124,7 +112,6 @@
                 😈 Times the forest underestimated you: Countless<br>
             </div>
 
-            <!-- Play again -->
             <br>
             <a href="/quest">
                 <button class="play-again">🔄 Dare to do it again?</button>

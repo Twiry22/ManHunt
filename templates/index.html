@@ -1,24 +1,162 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Manhunt | You Shouldn't Be Here</title>
+    <title>Manhunt | Enter the Forest</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+
+        .content {
+            margin-top: 40px;
+        }
+
+        .news-box {
+            border: 3px solid #2db30f;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 20px rgba(45, 179, 15, 0.3);
+        }
+
+    
+        .news-header {
+            background-color: #0d1f0d;
+            padding: 8px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #2db30f;
+        }
+
+        .news-channel {
+            font-family: 'Creepster', cursive;
+            font-size: 1.2em;
+            color: #2db30f;
+            letter-spacing: 3px;
+        }
+
+        .news-live {
+            background-color: #2db30f;
+            color: #050505;
+            font-family: 'Creepster', cursive;
+            font-size: 0.9em;
+            padding: 3px 8px;
+            letter-spacing: 2px;
+            animation: blink 1s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%   { opacity: 1; }
+            50%  { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .news-body {
+            padding: 20px 25px;
+        }
+
+        .news-headline {
+            font-family: 'Creepster', cursive;
+            font-size: 1.6em;
+            color: #2db30f;
+            text-align: left;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .mugshot {
+            float: right;
+            margin: 0 0 15px 15px;
+            border: 3px solid #2db30f;
+            background-color: #0d1f0d;
+            width: 100px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+        }
+
+        .mugshot-label {
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.25em;
+            color: #2db30f;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+
+        .news-text {
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.95em;
+            color: #e8e8e8;
+            text-align: left;
+            line-height: 1.9;
+        }
+
+        .news-footer {
+            background-color: #0d1f0d;
+            border-top: 2px solid #2db30f;
+            padding: 8px 15px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.8em;
+            color: #1a8c00;
+            text-align: left;
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- Main spooky title -->
-    <h1>🌿 You've Entered the Manhunt Forest</h1>
+    <div class="content">
 
-   <!-- Dark humorous subtitle -->
-    <p>
-        The forest has been expecting you. 
-        It just didn't think you'd be courageous enough to show up. 😈
+        <h1>🌿 Manhunt Forest</h1>
 
-    <!-- Map button leading to first puzzle -->
- <a href="/quest">
-        <button>🗺️ Follow the Map... if you dare</button>
-    </a>
+        <div class="news-box">
+
+            <div class="news-header">
+                <span class="news-channel">📺 FOREST NEWS NETWORK</span>
+                <span class="news-live">● LIVE</span>
+            </div>
+
+            <div class="news-body">
+
+                <p class="news-headline">
+                          WANTED!! <br>
+                      Where's My Johnny?
+                </p>
+
+                <div class="mugshot">
+                    🦹🏾‍♂️
+                    <span class="mugshot-label">SUSPECT</span>
+                </div>
+
+                <p class="news-text">
+                    I'm looking for my Johnny... He ran off into the scary ManHunt forest with his good-for-nothing sidechick 
+                    after promising me the World!🤦🏽‍♀️ <br><br>
+                    Your mission is simple! Enter the forest, 
+                    solve its puzzles and catch him for me.<br><br>
+                    <em style="color:#1a8c00;">
+                    Whether you relate or not, this information is now in your custody.<br>
+                          Good luck. 😈
+                    </em>
+                </p>
+
+            </div>
+
+            <div class="news-footer">
+                ⚠️ Last seen: Greedy and ready to devour beautiful women &nbsp;|&nbsp;
+                😈 What is life without risk?
+            </div>
+
+        </div>
+
+        <br>
+        <a href="/quest">
+            <button>🌿 Enter the Forest & Find Johnny</button>
+        </a>
+
+    </div>
 
 </body>
 </html>
