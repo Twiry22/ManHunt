@@ -97,7 +97,7 @@
         const code = document.getElementById('codeInput').value.toUpperCase().trim();
         const feedback = document.getElementById('feedback');
         const attemptsText = document.getElementById('attemptsText');
-
+        
         if (code === 'MANHUNT-XIII') {
             feedback.style.color = '#2db30f';
             feedback.innerHTML = '✅ The codex shudders. The forest exhales. You figured it out. Disgusting. We are proud. 😈';
@@ -119,7 +119,6 @@
         }
     }
 
-    // Allow pressing Enter to submit
     document.getElementById('codeInput').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') checkCode();
     });
