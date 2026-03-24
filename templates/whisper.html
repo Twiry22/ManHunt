@@ -4,7 +4,7 @@
     <title>Manhunt | The Whispering Trail</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
-        
+
         /* The ghost — faded in the background */
         .ghost {
             position: fixed;
@@ -51,7 +51,6 @@
             letter-spacing: 2px;
         }
 
-        /* Answer input */
         .answer-input {
             background: transparent;
             border: 1px solid #2db30f;
@@ -64,7 +63,6 @@
             letter-spacing: 2px;
         }
 
-        /* Feedback text */
         #feedback {
             font-family: 'Creepster', cursive;
             font-size: 1.2em;
@@ -72,7 +70,6 @@
             letter-spacing: 2px;
         }
 
-        /* Hint button — hidden by default */
         .hint-btn {
             display: none;
             background: transparent;
@@ -91,7 +88,6 @@
             color: #050505;
         }
 
-        /* Hint texts — hidden by default */
         #hint1, #hint2 {
             display: none;
             font-family: 'Creepster', cursive;
@@ -171,16 +167,12 @@
         if (answer === 'fear' || answer === 'silence' || answer === 'darkness') {
             feedback.style.color = '#2db30f';
             feedback.innerHTML = '✅ You heard what others could not. 👻😈';
-            // Hide hint button if they finally got it
             document.getElementById('hintBtn').style.display = 'none';
-            // Mark whisper path as solved in the browser notebook
             localStorage.setItem('whisper_solved', 'true');
         } else {
             feedback.style.color = '#8b0000';
             feedback.innerHTML = '❌ The forest is losing patience. 😈';
-            // Count the failed attempt
             attempts++;
-            // Show hint button after first failure
             if (attempts >= 1) {
                 document.getElementById('hintBtn').style.display = 'inline-block';
             }
@@ -193,12 +185,9 @@
     function showHint() {
         hintLevel++;
         if (hintLevel === 1) {
-            // Show first hint
             document.getElementById('hint1').style.display = 'block';
         } else if (hintLevel === 2) {
-            // Show second hint
             document.getElementById('hint2').style.display = 'block';
-            // Hide hint button after second hint — no more help! 😈
             document.getElementById('hintBtn').style.display = 'none';
         }
     }

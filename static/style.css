@@ -1,7 +1,6 @@
 /* Importing two fonts — one creepy, one readable */
 @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Raleway:wght@300;400&display=swap');
 
-/* The entire page */
 body {
     background-color: #050505;
     font-family: 'Raleway', sans-serif;
@@ -9,9 +8,7 @@ body {
     text-align: center;
     margin: 0;
     padding: 0 15px;
-    /* Prevents horizontal scrolling on phones */
     overflow-x: hidden;
-    /* Better text rendering on phones */
     -webkit-font-smoothing: antialiased;
 }
 
@@ -19,16 +16,13 @@ body {
 h1 {
     font-family: 'Creepster', cursive;
     color: #2db30f;
-    /* Scales down nicely on small screens */
     font-size: clamp(1.8em, 6vw, 3.5em);
     margin-top: 40px;
-    /* Reduced glow — less reflection, still spooky */
     text-shadow: 0 0 8px rgba(45, 179, 15, 0.6);
 }
 
 /* Subtitle paragraph */
 p {
-    /* Scales between 1em and 1.2em depending on screen */
     font-size: clamp(0.95em, 3vw, 1.2em);
     color: #1a8c00;
     font-style: italic;
@@ -43,15 +37,12 @@ button {
     background-color: transparent;
     color: #2db30f;
     font-family: 'Creepster', cursive;
-    /* Scales on small screens */
     font-size: clamp(1em, 4vw, 1.5em);
     padding: 12px 25px;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 20px;
-    /* Makes buttons easier to tap on phones */
     min-height: 48px;
-    /* Prevents buttons from overflowing on small screens */
     max-width: 100%;
 }
 
@@ -59,20 +50,17 @@ button {
 button:hover {
     background-color: #2db30f;
     color: #050505;
-    /* Reduced glow on hover */
     box-shadow: 0 0 10px rgba(45, 179, 15, 0.5);
 }
 
 /* Makes all inputs mobile friendly */
 input {
-    /* Prevents iOS from zooming in on input focus */
     font-size: 16px !important;
     max-width: 90%;
 }
 
 /* Responsive container for all pages */
 .puzzle-box, .clue-box, .codex-box, .victory-box {
-    /* Shrinks nicely on small screens */
     width: 90% !important;
     max-width: 560px !important;
     box-sizing: border-box;
@@ -85,27 +73,19 @@ input {
     h1 {
         margin-top: 25px;
     }
-
     button {
-        /* Full width buttons on small screens — easier to tap */
         width: 90%;
         margin: 10px auto;
         display: block;
     }
-
-    /* Map container scales down on phones */
     .map-container {
         width: 95vw !important;
         height: 65vw !important;
     }
-
-    /* Sliding puzzle scales down on phones */
     .puzzle-container {
         width: 90vw !important;
         height: 90vw !important;
     }
-
-    /* Tiles scale with puzzle container */
     .tile {
         width: 30vw !important;
         height: 30vw !important;

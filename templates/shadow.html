@@ -137,16 +137,12 @@
         if (answer === 'map' || answer === 'a map') {
             feedback.style.color = '#2db30f';
             feedback.innerHTML = '✅ The shadow bows. You may pass... for now. 😈';
-            // Hide hint button if they finally got it
             document.getElementById('hintBtn').style.display = 'none';
-            // Mark shadow path as solved in the browser notebook
             localStorage.setItem('shadow_solved', 'true');
         } else {
             feedback.style.color = '#8b0000';
             feedback.innerHTML = '❌ The shadow laughs at you. Try again. 😈';
-            // Count the failed attempt
             attempts++;
-            // Show hint button after first failure
             if (attempts >= 1) {
                 document.getElementById('hintBtn').style.display = 'inline-block';
             }
@@ -155,16 +151,12 @@
 
     // Track which hint we are on
     let hintLevel = 0;
-
     function showHint() {
         hintLevel++;
         if (hintLevel === 1) {
-            // Show first hint
             document.getElementById('hint1').style.display = 'block';
         } else if (hintLevel === 2) {
-            // Show second hint
             document.getElementById('hint2').style.display = 'block';
-            // Hide hint button after second hint — no more help! 😈
             document.getElementById('hintBtn').style.display = 'none';
         }
     }
