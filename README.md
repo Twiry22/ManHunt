@@ -1,6 +1,6 @@
 # Manhunt Quest
 
-A spooky, humorous browser-based manHunt game built with Python, Flask and HTML.
+A spooky, humorous browser-based manhunt game built with Python, Flask and HTML.
 
 ## What is Manhunt Quest?
 
